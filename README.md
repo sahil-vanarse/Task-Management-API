@@ -144,6 +144,10 @@ GET /api/users/
 - **Admin Username:** `admin`
 - **Admin Password:** *your_password_here* *(set during superuser creation)*
 
+## 🔑 Next Step
+- Login to Admin Panel
+- Create a Users to assign them a task
+
 ---
 
 Name : Sahil Vanarse
