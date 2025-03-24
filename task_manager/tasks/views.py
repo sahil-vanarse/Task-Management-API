@@ -8,6 +8,7 @@ The TaskViewSet provides the following functionalities:
 - **assign**: Assigns users to a specific task identified by its primary key (pk). It updates the task's assigned users based on the provided user IDs in the request data and returns a 204 status code upon success.
 - **list**: Retrieves and returns a list of all tasks in the system, serialized into a JSON format.
 - **retrieve**: Fetches a specific task by its primary key (pk) and returns its serialized data. If the task does not exist, it returns a 404 status code.
+- **update**: Updates an existing task identified by its primary key (pk). It validates the incoming data using the TaskSerializer and saves the updated task if valid, returning the updated task data with a 200 status code. If the data is invalid, it returns the errors with a 400 status code.
 - **get_tasks_for_user**: Retrieves all tasks assigned to a specific user identified by their user ID and returns the serialized task data.
 
 The UserViewSet provides the following functionalities:
@@ -51,6 +52,17 @@ class TaskViewSet(viewsets.ViewSet):
         except Task.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
     
+    def update(self, request, pk=None):
+        try:
+            task = Task.objects.get(pk=pk)
+            serializer = TaskSerializer(task, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Task.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
     def get_tasks_for_user(self, request, user_id=None):
         tasks = Task.objects.filter(assigned_users__id=user_id)
         serializer = TaskSerializer(tasks, many=True)

@@ -16,12 +16,12 @@ from rest_framework.routers import DefaultRouter
 from .views import TaskViewSet, UserViewSet
 
 router = DefaultRouter()
-router.register(r'tasks', TaskViewSet, basename='task')
-router.register(r'users', UserViewSet, basename='user')  # Register the UserViewSet
+router.register(r'tasks', TaskViewSet, basename='task')  # for the TaskViewSet class register the tasks
+router.register(r'users', UserViewSet, basename='user')  # for the UserViewSet class register the users
 
 urlpatterns = [
     path('', include(router.urls)),
     path('tasks/user/<int:user_id>/', TaskViewSet.as_view({'get': 'get_tasks_for_user'}), name='tasks-for-user'),
-    path('tasks/<int:pk>/assign/', TaskViewSet.as_view({'post': 'assign'}), name='assign-users-to-task'),  # Ensure this line is present
-    path('tasks/<int:pk>/', TaskViewSet.as_view({'delete': 'destroy'}), name='delete-task'),  # Ensure this line is present
+    path('tasks/<int:pk>/assign/', TaskViewSet.as_view({'post': 'assign'}), name='assign-users-to-task'), 
+    path('tasks/<int:pk>/', TaskViewSet.as_view({'delete': 'destroy'}), name='delete-task'),  
 ]
