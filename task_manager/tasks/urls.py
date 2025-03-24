@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('tasks/user/<int:user_id>/', TaskViewSet.as_view({'get': 'get_tasks_for_user'}), name='tasks-for-user'),
     path('tasks/<int:pk>/assign/', TaskViewSet.as_view({'post': 'assign'}), name='assign-users-to-task'),  # Ensure this line is present
+    path('tasks/<int:pk>/', TaskViewSet.as_view({'delete': 'destroy'}), name='delete-task'),  # Ensure this line is present
 ]

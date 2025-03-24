@@ -55,6 +55,14 @@ class TaskViewSet(viewsets.ViewSet):
         tasks = Task.objects.filter(assigned_users__id=user_id)
         serializer = TaskSerializer(tasks, many=True)
         return Response(serializer.data)
+
+    def destroy(self, request, pk=None):
+        try:
+            task = Task.objects.get(pk=pk)
+            task.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Task.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
     
 
 class UserViewSet(viewsets.ViewSet):
