@@ -146,4 +146,6 @@ GET /api/users/
 
 ---
 
-🎯 **Happy Coding! 🚀**
+Name : Sahil Vanarse
+Email : sahilvanarse13@gmail.com
+Contact : 8530038434
